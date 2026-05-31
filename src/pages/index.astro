@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout>
+  <section class="hero">
+    <h1>Hi, I'm {site.name}.</h1>
+    <p class="lead">{site.tagline}</p>
+  </section>
+
+  <section>
+    <h2>About</h2>
+    <p>
+      I'm a {site.role.toLowerCase()}. Write a short paragraph here about who
+      you are, what you work on, and what you care about. Two or three
+      sentences is plenty for a homepage — let the projects do the rest.
+    </p>
+    <p>
+      You can edit all of this text in <code>src/pages/index.astro</code>, and
+      your name, role, and links in <code>src/data/site.ts</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Elsewhere</h2>
+    <p class="muted">
+      Find me on
+      {site.social.github && <a href={site.social.github}>GitHub</a>}
+      {site.email && <> · <a href={`mailto:${site.email}`}>email</a></>}.
+    </p>
+    <p>
+      <a href="/projects">See what I've built →</a>
+    </p>
+  </section>
+
+  <style>
+    .hero {
+      padding: 1rem 0 1.5rem;
+    }
+    .lead {
+      font-size: 1.25rem;
+      color: var(--fg-muted);
+      margin: 0;
+    }
+    code {
+      font-size: 0.9em;
+      background: var(--bg-subtle);
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+  </style>
+</Layout>
