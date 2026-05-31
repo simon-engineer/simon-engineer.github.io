@@ -11,7 +11,6 @@ const { project } = Astro.props;
 <article class="card">
   <div class="card-head">
     <h3>{project.title}</h3>
-    {project.year && <span class="year muted">{project.year}</span>}
   </div>
   <p>{project.description}</p>
   {
@@ -64,10 +63,6 @@ const { project } = Astro.props;
   h3 {
     margin: 0 0 0.5rem;
     font-size: 1.2rem;
-  }
-  .year {
-    font-size: 0.85rem;
-    white-space: nowrap;
   }
   p {
     margin: 0 0 1rem;
