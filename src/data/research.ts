@@ -9,6 +9,8 @@ export interface Patent {
   title: string;
   number: string;
   date: string;
+  /** Optional snapshot image (path under /public), e.g. the patent cover. */
+  image?: string;
 }
 
 export interface Program {
@@ -75,6 +77,7 @@ export const patents: Patent[] = [
     title: 'High-Pressure Fuel Pump for Use with DME and Other Liquefied Gases',
     number: 'US-20250382933-A1',
     date: 'Dec 18, 2025',
+    image: '/patents/us-20250382933-a1.jpg',
   },
   {
     title:
