@@ -1,8 +1,10 @@
 export interface Publication {
   title: string;
-  authors: string;
+  authors?: string;
   venue: string;
   year: string;
+  /** Link to the paper (publisher page). */
+  url?: string;
 }
 
 export interface Patent {
@@ -19,19 +21,30 @@ export interface Program {
 }
 
 // Peer-reviewed publications, newest first.
+const SAE = (id: string) =>
+  `https://www.sae.org/publications/technical-papers/content/${id}/`;
+
 export const publications: Publication[] = [
   {
     title:
-      'Optimization of CI Engine Operation with DME on an FTP Cycle',
+      'Effect of Liquidized-Gas Fluid Properties in a High-Pressure Fuel Pump',
+    venue: 'SAE Technical Paper 2026-01-0273',
+    year: '2026',
+    url: SAE('2026-01-0273'),
+  },
+  {
+    title: 'Optimization of CI Engine Operation with DME on an FTP Cycle',
     authors: 'De Ojeda, W., Wu, S., Harrison, C., Hall, C. et al.',
     venue: 'SAE Technical Paper 2025-01-0394',
     year: '2025',
+    url: SAE('2025-01-0394'),
   },
   {
     title: 'Design of a High-Pressure Fuel System for Use with Dimethyl Ether',
     authors: 'De Ojeda, W. and Wu, S.',
-    venue: 'SAE Technical Paper 2025-01-844',
+    venue: 'SAE Technical Paper 2025-01-8441',
     year: '2025',
+    url: SAE('2025-01-8441'),
   },
   {
     title:
@@ -40,13 +53,7 @@ export const publications: Publication[] = [
       'De Ojeda, W., Wu, S.H., Hall, C., Ankobea-Ansah, K., Hassan, H.A., Harrison, C.',
     venue: 'SAE Technical Paper 2025-01-8415',
     year: '2025',
-  },
-  {
-    title:
-      'Experimental Investigation of the Effect of Air-Handling and DME-Propane Blends on the Performance and Emissions of a 4-Cylinder CI Engine',
-    authors: 'Hassan, H.A., Ankobea-Ansah, K., De Ojeda, W., Wu, S.H. & Hall, C.',
-    venue: 'ASME 2024 ICE Forward Conference, San Antonio, TX',
-    year: '2024',
+    url: SAE('2025-01-8415'),
   },
   {
     title:
@@ -54,6 +61,15 @@ export const publications: Publication[] = [
     authors: 'De Ojeda, W., Wu, S., Ankobea-Ansah, K., Hassan, H. et al.',
     venue: 'SAE Technical Paper 2024-01-2126',
     year: '2024',
+    url: SAE('2024-01-2126'),
+  },
+  {
+    title:
+      'Experimental Investigation of the Effect of Air-Handling and DME-Propane Blends on the Performance and Emissions of a 4-Cylinder CI Engine',
+    authors: 'Hassan, H.A., Ankobea-Ansah, K., De Ojeda, W., Wu, S.H. & Hall, C.',
+    venue: 'ASME 2024 ICE Forward Conference, San Antonio, TX',
+    year: '2024',
+    url: 'https://asmedigitalcollection.asme.org/ICEF/proceedings-abstract/ICEF2024/88520/V001T02A019/1210164',
   },
   {
     title:
@@ -61,6 +77,7 @@ export const publications: Publication[] = [
     authors: 'De Ojeda, W. and Wu, S.',
     venue: 'SAE Technical Paper 2023-01-0732',
     year: '2023',
+    url: SAE('2023-01-0732'),
   },
   {
     title:
@@ -68,6 +85,7 @@ export const publications: Publication[] = [
     authors: 'De Ojeda, W. and Wu, S.',
     venue: 'SAE Technical Paper 2023-01-0403',
     year: '2023',
+    url: SAE('2023-01-0403'),
   },
 ];
 

@@ -19,9 +19,16 @@ import { publications, patents, programs } from '../data/research';
       {
         publications.map((pub) => (
           <li>
-            <span class="pub-title">{pub.title}</span>
+            {pub.url ? (
+              <a class="pub-title pub-link" href={pub.url} target="_blank" rel="noopener">
+                {pub.title}
+              </a>
+            ) : (
+              <span class="pub-title">{pub.title}</span>
+            )}
             <span class="muted pub-meta">
-              {pub.authors} · {pub.venue}, {pub.year}
+              {pub.authors && <>{pub.authors} · </>}
+              {pub.venue}, {pub.year}
             </span>
           </li>
         ))
@@ -94,6 +101,14 @@ import { publications, patents, programs } from '../data/research';
     .pub-title {
       display: block;
       font-weight: 500;
+    }
+    .pub-link {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .pub-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
     }
     .pub-meta {
       display: block;
