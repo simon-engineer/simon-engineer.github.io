@@ -1,6 +1,8 @@
 export interface Project {
   title: string;
   description: string;
+  /** Optional image (path under /public), shown as a banner on the card. */
+  image?: string;
   /** Bullet-point accomplishments, shown as a list on the card. */
   highlights?: string[];
   tags: string[];
@@ -15,6 +17,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'High-Pressure Fuel Supply System for Liquefied Gas Fuels',
+    image: '/projects/fuel-supply-system.png',
     description:
       'Direct-injection fuel supply for liquefied gas fuels such as dimethyl ether (DME) and propane, developed under DOE-funded programs.',
     highlights: [
@@ -27,6 +30,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Micro Combined-Heat-and-Power (CHP) Control Unit',
+    image: '/projects/chp-control-unit.png',
     description:
       'Integration of the control unit for a micro combined-heat-and-power system, coordinating generation, energy storage, and thermal management.',
     highlights: [
@@ -39,6 +43,7 @@ export const projects: Project[] = [
   },
   {
     title: 'High-Speed Data Acquisition System',
+    image: '/projects/data-acquisition.png',
     description:
       'Real-time, high-speed DAQ platform for in-field engine testing and combustion-mode feedback.',
     highlights: [
@@ -51,6 +56,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Aviation Engine Fuel System Validation',
+    image: '/projects/aviation-fuel-system.jpg',
     description:
       'Performance validation of an aviation engine fuel system, characterizing governor behavior and controller stability.',
     highlights: [

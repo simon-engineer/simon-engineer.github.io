@@ -14,3 +14,5 @@ pnpm-debug.log*
 .env.production
 # macOS
 .DS_Store
+# source image originals (processed copies live in public/projects/)
+images/
