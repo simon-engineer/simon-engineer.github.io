@@ -4,7 +4,8 @@ export const site = {
   name: 'Simon',
   role: 'Engineer',
   // One or two sentences for the homepage hero / page descriptions.
-  tagline: 'Engineer building things on the web.',
+  tagline:
+    'Mechanical engineer and innovator advancing clean combustion and alternative fuel technologies through DOE-funded research and development.',
   email: 'simonwu158@gmail.com',
   social: {
     github: 'https://github.com/simon-engineer',
