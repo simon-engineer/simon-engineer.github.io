@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { publications, patents, programs } from '../data/research';
+---
+
+<Layout
+  title="Research"
+  description="Publications, patents, and DOE-funded research programs."
+>
+  <h1>Research</h1>
+  <p class="muted intro">
+    Peer-reviewed publications, patented technologies, and U.S. Department of
+    Energy–funded programs in clean combustion and alternative fuels.
+  </p>
+
+  <section>
+    <h2>Publications</h2>
+    <ol class="pub-list">
+      {
+        publications.map((pub) => (
+          <li>
+            <span class="pub-title">{pub.title}</span>
+            <span class="muted pub-meta">
+              {pub.authors} · {pub.venue}, {pub.year}
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section>
+    <h2>Patents</h2>
+    <ul class="plain">
+      {
+        patents.map((p) => (
+          <li>
+            <span class="pub-title">{p.title}</span>
+            <span class="muted pub-meta">
+              {p.number} · {p.date}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section>
+    <h2>DOE-Funded Programs</h2>
+    <p class="muted">Contributing member.</p>
+    <ul class="plain">
+      {
+        programs.map((prog) => (
+          <li>
+            <span class="pub-title">{prog.title}</span>
+            <span class="muted pub-meta">{prog.award}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <style>
+    .intro {
+      margin-bottom: 1.5rem;
+    }
+    .pub-list,
+    .plain {
+      padding-left: 0;
+      list-style-position: outside;
+    }
+    .pub-list {
+      padding-left: 1.3rem;
+    }
+    .plain {
+      list-style: none;
+    }
+    .pub-list li,
+    .plain li {
+      margin-bottom: 1rem;
+      line-height: 1.45;
+    }
+    .pub-title {
+      display: block;
+      font-weight: 500;
+    }
+    .pub-meta {
+      display: block;
+      font-size: 0.88rem;
+      margin-top: 0.15rem;
+    }
+  </style>
+</Layout>

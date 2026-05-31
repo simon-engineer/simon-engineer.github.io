@@ -15,6 +15,15 @@ const { project } = Astro.props;
   </div>
   <p>{project.description}</p>
   {
+    project.highlights && project.highlights.length > 0 && (
+      <ul class="highlights">
+        {project.highlights.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
     project.tags.length > 0 && (
       <ul class="tags">
         {project.tags.map((tag) => (
@@ -63,6 +72,15 @@ const { project } = Astro.props;
   p {
     margin: 0 0 1rem;
     color: var(--fg);
+  }
+  .highlights {
+    margin: 0 0 1rem;
+    padding-left: 1.1rem;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+  }
+  .highlights li {
+    margin-bottom: 0.35rem;
   }
   .tags {
     list-style: none;

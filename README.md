@@ -17,9 +17,10 @@ npm run dev      # http://localhost:4321
 
 | What | Where |
 | --- | --- |
-| Name, role, tagline, links | `src/data/site.ts` |
-| About / homepage text | `src/pages/index.astro` |
+| Name, role, tagline, links, expertise, education, experience | `src/data/site.ts` |
+| About / homepage prose | `src/pages/index.astro` |
 | Projects list | `src/data/projects.ts` |
+| Publications, patents, DOE programs | `src/data/research.ts` |
 | Global colors & type | `src/styles/global.css` |
 
 ## Deploy

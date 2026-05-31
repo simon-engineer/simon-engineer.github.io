@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { site } from '../data/site';
+import { site, expertise, education, experience } from '../data/site';
 ---
 
 <Layout>
@@ -28,14 +28,59 @@ import { site } from '../data/site';
   </section>
 
   <section>
+    <h2>Areas of Expertise</h2>
+    <ul class="expertise">
+      {expertise.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    {
+      experience.map((role) => (
+        <div class="entry">
+          <div class="entry-head">
+            <strong>{role.org}</strong>
+            <span class="muted nowrap">{role.period}</span>
+          </div>
+          <div class="entry-sub muted">
+            {role.title} · {role.location}
+          </div>
+          <p>{role.summary}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    {
+      education.map((ed) => (
+        <div class="entry">
+          <div class="entry-head">
+            <strong>{ed.school}</strong>
+            <span class="muted nowrap">{ed.year}</span>
+          </div>
+          <div class="entry-sub muted">
+            {ed.degree} · {ed.location}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
     <h2>Elsewhere</h2>
     <p class="muted">
-      Find me on
-      {site.social.github && <a href={site.social.github}>GitHub</a>}
+      Based in {site.location}. Find me on
+      {site.social.linkedin && <a href={site.social.linkedin}>LinkedIn</a>}
+      {site.social.github && <> · <a href={site.social.github}>GitHub</a></>}
       {site.email && <> · <a href={`mailto:${site.email}`}>email</a></>}.
     </p>
     <p>
       <a href="/projects">See what I've built →</a>
+      &nbsp;·&nbsp;
+      <a href="/research">Research, patents & publications →</a>
     </p>
   </section>
 
@@ -44,16 +89,35 @@ import { site } from '../data/site';
       padding: 1rem 0 1.5rem;
     }
     .lead {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--fg-muted);
       margin: 0;
     }
-    code {
-      font-size: 0.9em;
-      background: var(--bg-subtle);
-      padding: 0.1rem 0.4rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+    .expertise {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+    .expertise li {
+      margin-bottom: 0.5rem;
+    }
+    .entry {
+      margin-bottom: 1.5rem;
+    }
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .entry-sub {
+      font-size: 0.92rem;
+      margin-top: 0.15rem;
+    }
+    .entry p {
+      margin: 0.5rem 0 0;
+    }
+    .nowrap {
+      white-space: nowrap;
     }
   </style>
 </Layout>
