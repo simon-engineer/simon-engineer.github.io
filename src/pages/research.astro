@@ -42,7 +42,13 @@ import { publications, patents, programs } from '../data/research';
       {
         patents.map((p) => (
           <li>
-            <span class="pub-title">{p.title}</span>
+            {p.url ? (
+              <a class="pub-title pub-link" href={p.url} target="_blank" rel="noopener">
+                {p.title}
+              </a>
+            ) : (
+              <span class="pub-title">{p.title}</span>
+            )}
             <span class="muted pub-meta">
               {p.number} · {p.date}
             </span>

@@ -1,7 +1,7 @@
 // Central place for your identity + links. Edit these and the whole site
 // updates.
 export const site = {
-  name: 'Simon Wu',
+  name: 'Simon (Haibao) Wu',
   role: 'Mechanical Engineer',
   // One or two sentences for the homepage hero / page descriptions.
   tagline:

@@ -11,6 +11,8 @@ export interface Patent {
   title: string;
   number: string;
   date: string;
+  /** Optional link to the patent (e.g. Google Patents). */
+  url?: string;
   /** Optional snapshot image (path under /public), e.g. the patent cover. */
   image?: string;
 }
@@ -28,6 +30,7 @@ export const publications: Publication[] = [
   {
     title:
       'Effect of Liquidized-Gas Fluid Properties in a High-Pressure Fuel Pump',
+    authors: 'De Ojeda, W. and Wu, S.',
     venue: 'SAE Technical Paper 2026-01-0273',
     year: '2026',
     url: SAE('2026-01-0273'),
@@ -95,6 +98,7 @@ export const patents: Patent[] = [
     title: 'High-Pressure Fuel Pump for Use with DME and Other Liquefied Gases',
     number: 'US-20250382933-A1',
     date: 'Dec 18, 2025',
+    url: 'https://patents.google.com/patent/US20250382933A1/en',
     image: '/patents/us-20250382933-a1.jpg',
   },
   {
