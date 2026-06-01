@@ -23,7 +23,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'High-Pressure Fuel Supply System for Liquefied Gas Fuels',
-    image: '/projects/fuel-supply-system.png',
+    images: [
+      '/projects/fuel-supply-system/01.png',
+      '/projects/fuel-supply-system/02.jpg',
+    ],
     description:
       'Direct-injection fuel supply for liquefied gas fuels such as dimethyl ether (DME) and propane, developed under DOE-funded programs.',
     highlights: [
@@ -36,7 +39,10 @@ export const projects: Project[] = [
   },
   {
     title: 'Micro Combined-Heat-and-Power (CHP) Control Unit',
-    image: '/projects/chp-control-unit.png',
+    images: [
+      '/projects/chp-control-unit/01.png',
+      '/projects/chp-control-unit/02.png',
+    ],
     description:
       'Integration of the control unit for a micro combined-heat-and-power system, coordinating generation, energy storage, and thermal management.',
     highlights: [
@@ -49,7 +55,10 @@ export const projects: Project[] = [
   },
   {
     title: 'High-Speed Data Acquisition System',
-    image: '/projects/data-acquisition.png',
+    images: [
+      '/projects/data-acquisition/01.png',
+      '/projects/data-acquisition/02.jpg',
+    ],
     description:
       'Real-time, high-speed DAQ platform for in-field engine testing and combustion-mode feedback.',
     highlights: [
@@ -62,7 +71,11 @@ export const projects: Project[] = [
   },
   {
     title: 'Aviation Engine Fuel System Validation',
-    image: '/projects/aviation-fuel-system.jpg',
+    images: [
+      '/projects/aviation-fuel-system/01.jpg',
+      '/projects/aviation-fuel-system/02.jpg',
+      '/projects/aviation-fuel-system/03.jpg',
+    ],
     description:
       'Performance validation of an aviation engine fuel system, characterizing governor behavior and controller stability.',
     highlights: [
@@ -72,5 +85,16 @@ export const projects: Project[] = [
     ],
     tags: ['Aviation', 'PID Control', 'Test Engineering', 'Validation'],
     year: '2020–Present',
+  },
+  {
+    title: 'Development and Demonstration of a Medium-Duty Off-Road DME Engine',
+    images: [
+      '/projects/md-offroad-dme-engine/01.jpg',
+      '/projects/md-offroad-dme-engine/02.jpg',
+    ],
+    description:
+      'DOE-funded program (DE-EE0011174) to develop and demonstrate a medium-duty, off-road engine running on dimethyl ether (DME), targeting high efficiency and ultra-low emissions for non-road applications.',
+    tags: ['DME', 'Medium-Duty', 'Off-Road', 'Engine Demonstration', 'DOE'],
+    year: '2023–Present',
   },
 ];
