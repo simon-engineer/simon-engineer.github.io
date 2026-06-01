@@ -1,0 +1,200 @@
+---
+interface Props {
+  images: string[];
+  alt: string;
+}
+
+const { images, alt } = Astro.props;
+const multiple = images.length > 1;
+---
+
+{
+  images.length > 0 && (
+    <div class:list={['gallery', { single: !multiple }]} data-gallery>
+      <div class="track" data-track>
+        {images.map((src, i) => (
+          <img
+            class="slide"
+            src={src}
+            alt={multiple ? `${alt} (image ${i + 1} of ${images.length})` : alt}
+            loading="lazy"
+            draggable="false"
+          />
+        ))}
+      </div>
+
+      {multiple && (
+        <>
+          <button class="nav prev" data-prev type="button" aria-label="Previous image">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <button class="nav next" data-next type="button" aria-label="Next image">
+            <span aria-hidden="true">›</span>
+          </button>
+          <div class="dots" data-dots>
+            {images.map((_, i) => (
+              <button
+                class="dot"
+                data-dot={i}
+                type="button"
+                aria-label={`Go to image ${i + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .gallery {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    /* hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+  .slide {
+    flex: 0 0 100%;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    scroll-snap-align: center;
+    display: block;
+    user-select: none;
+  }
+
+  /* Arrow buttons */
+  .nav {
+    position: absolute;
+    top: calc(50% - 18px);
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    backdrop-filter: blur(4px);
+    color: var(--fg);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease;
+    z-index: 2;
+  }
+  .gallery:hover .nav,
+  .nav:focus-visible {
+    opacity: 1;
+  }
+  .nav:hover {
+    background: var(--bg);
+  }
+  .nav.prev {
+    left: 8px;
+  }
+  .nav.next {
+    right: 8px;
+  }
+  .nav:disabled {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+  /* On touch devices (no hover), keep arrows visible but subtle */
+  @media (hover: none) {
+    .nav {
+      opacity: 0.7;
+    }
+  }
+
+  /* Dot indicators */
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .dot:hover {
+    background: var(--fg-muted);
+  }
+  .dot.active {
+    background: var(--accent);
+    transform: scale(1.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  // Wire up every gallery on the page: arrow buttons, dots, and active state.
+  // Core swipe/scroll works without JS via CSS scroll-snap.
+  function initGalleries() {
+    document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((g) => {
+      const track = g.querySelector<HTMLElement>('[data-track]');
+      if (!track) return;
+      const prev = g.querySelector<HTMLButtonElement>('[data-prev]');
+      const next = g.querySelector<HTMLButtonElement>('[data-next]');
+      const dots = Array.from(g.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+      if (!dots.length) return;
+
+      const slideWidth = () => track.clientWidth || 1;
+      const currentIndex = () => Math.round(track.scrollLeft / slideWidth());
+      const goTo = (i: number) => {
+        const clamped = Math.max(0, Math.min(dots.length - 1, i));
+        track.scrollTo({ left: clamped * slideWidth(), behavior: 'smooth' });
+      };
+
+      prev?.addEventListener('click', () => goTo(currentIndex() - 1));
+      next?.addEventListener('click', () => goTo(currentIndex() + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      const update = () => {
+        const c = currentIndex();
+        dots.forEach((d, i) => d.classList.toggle('active', i === c));
+        if (prev) prev.disabled = c <= 0;
+        if (next) next.disabled = c >= dots.length - 1;
+      };
+
+      track.addEventListener(
+        'scroll',
+        () => window.requestAnimationFrame(update),
+        { passive: true },
+      );
+      window.addEventListener('resize', update);
+      update();
+    });
+  }
+
+  initGalleries();
+  // Re-init after Astro view transitions, if ever enabled.
+  document.addEventListener('astro:page-load', initGalleries);
+</script>

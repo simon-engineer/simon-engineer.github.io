@@ -1,24 +1,24 @@
 ---
 import type { Project } from '../data/projects';
+import ProjectGallery from './ProjectGallery.astro';
 
 interface Props {
   project: Project;
 }
 
 const { project } = Astro.props;
+
+// Normalize to an image list: `images` wins, else fall back to single `image`.
+const gallery =
+  project.images && project.images.length > 0
+    ? project.images
+    : project.image
+      ? [project.image]
+      : [];
 ---
 
 <article class="card">
-  {
-    project.image && (
-      <img
-        class="card-image"
-        src={project.image}
-        alt={project.title}
-        loading="lazy"
-      />
-    )
-  }
+  <ProjectGallery images={gallery} alt={project.title} />
   <div class="card-head">
     <h3>{project.title}</h3>
   </div>
@@ -63,16 +63,6 @@ const { project } = Astro.props;
   .card:hover {
     border-color: var(--accent);
     transform: translateY(-2px);
-  }
-  .card-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: #fff;
-    margin-bottom: 1rem;
   }
   .card-head {
     display: flex;

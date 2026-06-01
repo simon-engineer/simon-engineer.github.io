@@ -1,8 +1,14 @@
 export interface Project {
   title: string;
   description: string;
-  /** Optional image (path under /public), shown as a banner on the card. */
+  /** Optional single image (path under /public), shown as a banner on the card. */
   image?: string;
+  /**
+   * Optional multiple images (paths under /public). When more than one is
+   * given, the card shows a swipeable carousel with arrows and dots.
+   * Takes precedence over `image`.
+   */
+  images?: string[];
   /** Bullet-point accomplishments, shown as a list on the card. */
   highlights?: string[];
   tags: string[];
