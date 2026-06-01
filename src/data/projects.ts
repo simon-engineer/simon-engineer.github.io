@@ -97,4 +97,18 @@ export const projects: Project[] = [
     tags: ['DME', 'Medium-Duty', 'Off-Road', 'Engine Demonstration', 'DOE'],
     year: '2023–Present',
   },
+  {
+    title:
+      'High-Pressure Fast-Response Direct Injection System for Light-Duty Engines',
+    images: [
+      '/projects/ld-direct-injection/01.jpg',
+      '/projects/ld-direct-injection/02.jpg',
+      '/projects/ld-direct-injection/03.jpg',
+      '/projects/ld-direct-injection/04.jpg',
+    ],
+    description:
+      'DOE-funded program (DE-EE0009878) developing a high-pressure, fast-response direct injection system for liquefied gas fuels in light-duty engines, enabling high-efficiency, low-emission combustion of fuels such as DME and propane.',
+    tags: ['Direct Injection', 'Liquefied Gas', 'Light-Duty', 'DME', 'DOE'],
+    year: '2020–Present',
+  },
 ];
