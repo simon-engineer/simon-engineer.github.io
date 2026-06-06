@@ -122,6 +122,7 @@ export const skills: Skill[] = [
   },
   {
     label: 'Website Development',
+    images: ['/skills/website-development/01.png'],
     icon: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
   },
 ];
