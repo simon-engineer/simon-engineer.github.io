@@ -1,7 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
 import { site, expertise, education, experience } from '../data/site';
 import { skills } from '../data/skills';
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/&/g, ' ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+const expandableSkills = skills.filter((s) => s.images && s.images.length > 0);
 ---
 
 <Layout>
@@ -10,24 +20,92 @@ import { skills } from '../data/skills';
     <p class="lead">{site.tagline}</p>
     <ul class="skills" aria-label="Core skills">
       {
-        skills.map((skill) => (
-          <li class="skill">
-            <svg
-              class="skill-ic"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              set:html={skill.icon}
-            />
-            <span>{skill.label}</span>
-          </li>
-        ))
+        skills.map((skill) => {
+          const hasImages = !!(skill.images && skill.images.length);
+          const slug = slugify(skill.label);
+          return (
+            <li>
+              {hasImages ? (
+                <button
+                  class="skill skill-btn"
+                  type="button"
+                  data-skill={slug}
+                  aria-expanded="false"
+                  aria-controls={`skill-pane-${slug}`}
+                >
+                  <svg
+                    class="skill-ic"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={skill.icon}
+                  />
+                  <span>{skill.label}</span>
+                  <svg
+                    class="skill-chev"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+              ) : (
+                <span class="skill">
+                  <svg
+                    class="skill-ic"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={skill.icon}
+                  />
+                  <span>{skill.label}</span>
+                </span>
+              )}
+            </li>
+          );
+        })
       }
     </ul>
+
+    <div class="skill-drawer" id="skill-drawer">
+      {
+        expandableSkills.map((skill) => {
+          const slug = slugify(skill.label);
+          return (
+            <div
+              class="skill-pane"
+              id={`skill-pane-${slug}`}
+              data-pane={slug}
+              role="region"
+              aria-label={skill.label}
+              hidden
+            >
+              <div class="skill-pane-head">
+                <strong>{skill.label}</strong>
+                <button class="skill-close" type="button" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {skill.blurb && <p class="skill-blurb muted">{skill.blurb}</p>}
+              <ProjectGallery images={skill.images ?? []} alt={skill.label} />
+            </div>
+          );
+        })
+      }
+    </div>
   </section>
 
   <section>
@@ -140,6 +218,81 @@ import { skills } from '../data/skills';
       flex-shrink: 0;
       color: var(--accent);
     }
+    /* Expandable chips (have images) */
+    .skill-btn {
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.82rem;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .skill-btn:hover {
+      border-color: var(--accent);
+    }
+    .skill-btn[aria-expanded='true'] {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--bg-subtle));
+    }
+    .skill-chev {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--fg-muted);
+      transition: transform 0.18s ease;
+    }
+    .skill-btn[aria-expanded='true'] .skill-chev {
+      transform: rotate(180deg);
+    }
+    /* Expanding drawer */
+    .skill-drawer {
+      display: none;
+      margin-top: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-subtle);
+      padding: 1rem;
+    }
+    .skill-drawer.open {
+      display: block;
+      animation: skill-drawer-in 0.18s ease;
+    }
+    @keyframes skill-drawer-in {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    .skill-pane-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .skill-close {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: var(--fg-muted);
+      padding: 0 0.25rem;
+    }
+    .skill-close:hover {
+      color: var(--fg);
+    }
+    .skill-blurb {
+      margin: 0 0 0.75rem;
+      font-size: 0.92rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .skill-drawer.open {
+        animation: none;
+      }
+    }
     .expertise {
       padding-left: 1.2rem;
       margin: 0;
@@ -167,4 +320,66 @@ import { skills } from '../data/skills';
       white-space: nowrap;
     }
   </style>
+
+  <script>
+    // Skill chips → expanding drawer with an image carousel.
+    // Only chips that have images render as buttons, so this no-ops until any
+    // skill has an images[] array.
+    function initSkillDrawer() {
+      const drawer = document.getElementById('skill-drawer');
+      const btns = Array.from(
+        document.querySelectorAll<HTMLButtonElement>('.skill-btn'),
+      );
+      if (!drawer || !btns.length) return;
+      const panes = Array.from(
+        drawer.querySelectorAll<HTMLElement>('.skill-pane'),
+      );
+      let active: string | null = null;
+
+      const close = () => {
+        if (!active) return;
+        btns.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+        panes.forEach((p) => (p.hidden = true));
+        drawer.classList.remove('open');
+        active = null;
+      };
+
+      const open = (slug: string) => {
+        const btn = btns.find((b) => b.dataset.skill === slug);
+        const pane = panes.find((p) => p.dataset.pane === slug);
+        if (!btn || !pane) return;
+        btns.forEach((b) =>
+          b.setAttribute('aria-expanded', String(b === btn)),
+        );
+        panes.forEach((p) => (p.hidden = p !== pane));
+        drawer.classList.add('open');
+        active = slug;
+        // The carousel measures itself off clientWidth; nudge it now that the
+        // pane is visible so dots/arrows compute correctly.
+        window.dispatchEvent(new Event('resize'));
+      };
+
+      btns.forEach((btn) =>
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const slug = btn.dataset.skill!;
+          active === slug ? close() : open(slug);
+        }),
+      );
+
+      // Clicks inside the drawer (e.g. carousel) must not close it.
+      drawer.addEventListener('click', (e) => e.stopPropagation());
+      drawer
+        .querySelectorAll<HTMLButtonElement>('.skill-close')
+        .forEach((b) => b.addEventListener('click', close));
+
+      document.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+    }
+
+    initSkillDrawer();
+    document.addEventListener('astro:page-load', initSkillDrawer);
+  </script>
 </Layout>

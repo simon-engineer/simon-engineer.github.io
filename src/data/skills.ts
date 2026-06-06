@@ -5,6 +5,13 @@
 export interface Skill {
   label: string;
   icon: string;
+  /**
+   * Optional images (paths under /public). When present, the chip becomes
+   * clickable and expands a drawer with a carousel of these images.
+   */
+  images?: string[];
+  /** Optional one-line description shown above the images in the drawer. */
+  blurb?: string;
 }
 
 export const skills: Skill[] = [
