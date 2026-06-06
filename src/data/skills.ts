@@ -40,4 +40,16 @@ export const skills: Skill[] = [
     label: 'Integration & Unit Tests',
     icon: '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
   },
+  {
+    label: 'Data Acquisition',
+    icon: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  },
+  {
+    label: 'Embedded Systems',
+    icon: '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
+  },
+  {
+    label: 'Website Development',
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+  },
 ];
