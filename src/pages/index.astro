@@ -1,12 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site, expertise, education, experience } from '../data/site';
+import { skills } from '../data/skills';
 ---
 
 <Layout>
   <section class="hero">
     <h1>Hi, I'm {site.name}.</h1>
     <p class="lead">{site.tagline}</p>
+    <ul class="skills" aria-label="Core skills">
+      {
+        skills.map((skill) => (
+          <li class="skill">
+            <svg
+              class="skill-ic"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={skill.icon}
+            />
+            <span>{skill.label}</span>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section>
@@ -92,6 +113,32 @@ import { site, expertise, education, experience } from '../data/site';
       font-size: 1.2rem;
       color: var(--fg-muted);
       margin: 0;
+    }
+    .skills {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0;
+      margin: 1.25rem 0 0;
+    }
+    .skill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .skill-ic {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: var(--accent);
     }
     .expertise {
       padding-left: 1.2rem;
