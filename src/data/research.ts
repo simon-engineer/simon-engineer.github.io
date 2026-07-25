@@ -15,6 +15,8 @@ export interface Patent {
   url?: string;
   /** Optional snapshot image (path under /public), e.g. the patent cover. */
   image?: string;
+  /** Optional full document PDF (path under /public). */
+  pdf?: string;
 }
 
 export interface Program {
@@ -95,17 +97,20 @@ export const publications: Publication[] = [
 // Patents.
 export const patents: Patent[] = [
   {
+    title:
+      'High-Pressure Fuel Pump with Configuration to Mitigate Cavitation',
+    number: 'US-20260194033-A1',
+    date: 'Jul 9, 2026',
+    // Not yet indexed on Google Patents; add url once it is live.
+    image: '/patents/us-20260194033-a1.jpg',
+    pdf: '/patents/us-20260194033-a1.pdf',
+  },
+  {
     title: 'High-Pressure Fuel Pump for Use with DME and Other Liquefied Gases',
     number: 'US-20250382933-A1',
     date: 'Dec 18, 2025',
     url: 'https://patents.google.com/patent/US20250382933A1/en',
     image: '/patents/us-20250382933-a1.jpg',
-  },
-  {
-    title:
-      'High-Pressure Fuel Pump with Configuration to Mitigate Cavitation',
-    number: 'US 10/014,685',
-    date: 'Jan 9, 2025',
   },
   {
     title:

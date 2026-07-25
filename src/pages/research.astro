@@ -42,8 +42,8 @@ import { publications, patents, programs } from '../data/research';
       {
         patents.map((p) => (
           <li>
-            {p.url ? (
-              <a class="pub-title pub-link" href={p.url} target="_blank" rel="noopener">
+            {p.url || p.pdf ? (
+              <a class="pub-title pub-link" href={p.url ?? p.pdf} target="_blank" rel="noopener">
                 {p.title}
               </a>
             ) : (
@@ -53,7 +53,7 @@ import { publications, patents, programs } from '../data/research';
               {p.number} · {p.date}
             </span>
             {p.image && (
-              <a class="patent-snapshot" href={p.image} target="_blank" rel="noopener">
+              <a class="patent-snapshot" href={p.pdf ?? p.image} target="_blank" rel="noopener">
                 <img
                   src={p.image}
                   alt={`Snapshot of patent ${p.number}: ${p.title}`}
